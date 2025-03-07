@@ -48,10 +48,10 @@ author:
 
 # Add links to the sidebar.
 menu:
-  - title:             Example
-    url:               /example/
-  - title:             Documentation
-    url:               /docs/
+  - title:             Computer Vision
+    url:               /cv/
+  - title:             Natural Language Processing
+    url:               /nlp/
   - title:             About
     url:               /about/
 
