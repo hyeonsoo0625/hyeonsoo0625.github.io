@@ -12,3 +12,25 @@
     margin: 1rem 0;
   }
 }
+
+.sidebar-sticky {
+  height: 100%;
+  padding-top: 5%;
+  position: absolute;
+}
+
+.flip-title {
+  font-size: 25px;
+}
+
+.ellipsis > .flip-title {
+  font-size: 18px;
+}
+
+.heading.flip-title {
+  font-size: 20px;
+}
+
+.related-posts > .flip-title {
+  font-size: 20px;
+}
