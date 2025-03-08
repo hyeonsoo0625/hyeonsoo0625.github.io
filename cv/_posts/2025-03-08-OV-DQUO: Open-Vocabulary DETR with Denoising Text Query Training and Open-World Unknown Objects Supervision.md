@@ -19,4 +19,4 @@ Open-Vocabulary Detection은 train에서 접하지 않은 새로운 category의 
 1. 신뢰도 편향이 novel category detection에 미치는 영향을 검증
     
     VLM과 detector가 base category와 novel category에 부여한 confidence score를 분석
-    ![image](image.png)
+    <img src="../images/OV-DQUO1-a.png" />
