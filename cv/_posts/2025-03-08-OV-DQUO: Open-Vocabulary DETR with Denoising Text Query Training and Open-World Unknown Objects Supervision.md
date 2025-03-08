@@ -4,8 +4,9 @@ title:  "OV-DQUO: Open-Vocabulary DETR with Denoising Text Query Training and Op
 date:   2025-03-08 01:54:48 +0900
 categories: cv
 ---
+# OV-DQUO: Open-Vocabulary DETR with Denoising Text Query Training and Open-World Unknown Objects Supervision
 
-# Introduction
+## Introduction
 Open-Vocabulary Detection은 train에서 접하지 않은 새로운 category의 Object를 식별한다. 최근 Vision-Language Models (VLMs)들은 Zero-shot image classification에서 인상적인 성능을 보여주고 있다.
 #### VILD
 - VLM의 classification knowledge를 Object detector로 knowledge distillation
