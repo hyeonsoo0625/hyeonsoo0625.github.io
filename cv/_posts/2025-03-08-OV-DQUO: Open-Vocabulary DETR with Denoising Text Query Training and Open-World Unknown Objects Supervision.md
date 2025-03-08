@@ -56,11 +56,11 @@ DETR은 backbone network, encoder, decoder로 구성
     - 각 region proposal과 관련된 object query set을 최종 box 및 classification prediction으로 정제
 
 기존 OV-DETR과 CORA는 OVD를 달성하기 위해 conditional matching 방법으로 decoder를 수정
-이때, 각 object query $q_i$는 관련된 region proposal을 분류해 label $c_i$를 할당
+이때, 각 object query $$q_i$$는 관련된 region proposal을 분류해 label $$c_i$$를 할당
 $$
 \begin{aligned}
 c_i = \displaystyle{\argmax_{c \in C^{base}} cosine(v_i, t_c)},
-\begin{aligned}
+\end{aligned}
 $$
 - $$v_i$$ : frozen VLM의 feature map에서 RoI Align을 수행해 얻은 $b_i$의 region feature
 - $$t_c$$ : class c의 text embedding
@@ -70,14 +70,14 @@ $$
 $$
 \begin{aligned}
 q_i^* = q_i + MLP(t_{c_i})
-\begin{aligned}
+\end{aligned}
 $$
 이때, $$q_i$$는 일반 object query를 나타내고, decoder는 각 object query를 해당 region proposal $$(q_i^*, b_i)$$와 함께 반복적으로 정제해 $$(\hat{m}_i, \hat{b}_i)$$로 만든다. 이때 $$$\hat{b}_i$$는 정제된 box 좌표, $$\hat{m}_i$$는 sigmoid 확률 스칼라를 나타낸다.
 Inference를 수행할 때 frozen VLM은 $$\hat{b}_i$$를 분류하는 역할을 하고, 각 category에 대한 분류 점수는 해당 일치 확률인 $$\hat{m}_i$$로 곱한다.
 $$
 \begin{aligned}
 P(\hat{b}_i \in c) = \hat{m}_i cosine(\hat{v}_i, t_c)
-\begin{aligned}
+\end{aligned}
 $$
 
 ## Open-World Pseudo Labeling & Wildcard Matching
