@@ -10,8 +10,10 @@ categories: cv
 Open-Vocabulary Detection은 train에서 접하지 않은 새로운 category의 Object를 식별한다. 최근 Vision-Language Models (VLMs)들은 Zero-shot image classification에서 인상적인 성능을 보여주고 있다.
 #### VILD
 - VLM의 classification knowledge를 Object detector로 knowledge distillation
+
 #### BARON
 - 지역의 bag-of-regions embedding을 VLM에 의해 추출된 Image feature와 정렬
+
 #### RegionCLIP
 - VLM과 RPN을 사용해 훈련을 위해 image-caption dataset에서 region-text pair를 생성하는 pseudo labeling
 
@@ -20,4 +22,6 @@ Open-Vocabulary Detection은 train에서 접하지 않은 새로운 category의 
 1. 신뢰도 편향이 novel category detection에 미치는 영향을 검증
     
     VLM과 detector가 base category와 novel category에 부여한 confidence score를 분석
-    <img src="../images/OV-DQUO1-a.png" />
+    <img src="../images/OV-DQUO/1-a.png" />
+    위 그림을 보면 Person이 base category이고, Umbrella는 novel category을 나타낸다. 이때 Detector에는 Person보다 umbrella에 더 낮은 confidence score를 할당한다. 이때 GT box와의 IoU을 기준으로 bounding box의 prediction confidence를 조정해 수동으로 confidence bias를 제거하면 격차가 좁아지는 것을 확인해 볼 수 있다.
+    이를 통해 `confidence bias`가 novel category detection에서 성능을 약화시키는 원인임을 확인
