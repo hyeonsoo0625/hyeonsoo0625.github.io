@@ -6,7 +6,7 @@ categories: cv
 ---
 # OV-DQUO: Open-Vocabulary DETR with Denoising Text Query Training and Open-World Unknown Objects Supervision
 
-## Introduction
+# Introduction
 Open-Vocabulary Detection은 train에서 접하지 않은 새로운 category의 Object를 식별한다. 최근 Vision-Language Models (VLMs)들은 Zero-shot image classification에서 인상적인 성능을 보여주고 있다.
 #### VILD
 - VLM의 classification knowledge를 Object detector로 knowledge distillation
@@ -37,3 +37,39 @@ Open-Vocabulary Detection은 train에서 접하지 않은 새로운 category의 
 미지의 object에서 foreground와 background query-box 쌍을 합성해 detector가 contrastive learning을 통해 새로운 object를 background에서 더 잘 구별할 수 있도록 한다.
 또한, confidence bias가 region proposal 선택에 미치는 영향을 줄이기 위해 confidence score와 region-text 유사성을 통합한 `Region of Query Interests (RoQIs)을 제안하였다.`
 
+# Methodology
+<img src="../images/OV-DQUO/2.png" />
+
+## Preliminaries
+### Task Formulation
+- $C_{base}$ : 훈련 과정에서 dataset의 부분 class annotation만 사용함. 이를 base classes라 부름
+- $C_{novel}$ : 훈련 중 보지 못한 base class와 novel class
+- $C_{base} \cap C_{novel} = \varnothing$
+
+### Conditional Matching
+DETR은 backbone network, encoder, decoder로 구성
+- encoder
+    - backbone에서 추출된 feature map을 정제하고 region proposals 생성
+- decoder
+    - 각 region proposal과 관련된 object query set을 최종 box 및 classification prediction으로 정제
+
+기존 OV-DETR과 CORA는 OVD를 달성하기 위해 conditional matching 방법으로 decoder를 수정
+이때, 각 object query $q_i$는 관련된 region proposal을 분류해 label $c_i$를 할당
+$$
+c_i = \displaystyle\argmax_{c \in C^{base}} cosine(v_i, t_c),
+$$
+- $v_i$ : frozen VLM의 feature map에서 RoI Align을 수행해 얻은 $b_i$의 region feature
+- $t_c$ : class c의 text embedding
+- $cosine$ : cosine similarity
+
+이후, class-aware object query인 $q_i^*$는 다음과 같다.
+$$
+q_i^* = q_i + MLP(t_{c_i})
+$$
+이때, $q_i$는 일반 object query를 나타내고, decoder는 각 object query를 해당 region proposal $(q_i^*, b_i)$와 함께 반복적으로 정제해 $(\hat{m}_i, \hat{b}_i)$로 만든다. 이때 $\hat{b}_i$는 정제된 box 좌표, $\hat{m}_i$는 sigmoid 확률 스칼라를 나타낸다.
+Inference를 수행할 때 frozen VLM은 $\hat{b}_i$를 분류하는 역할을 하고, 각 category에 대한 분류 점수는 해당 일치 확률인 $\hat{m}_i$로 곱한다.
+$$
+P(\hat{b}_i \in c) = \hat{m}_i cosine(\hat{v}_i, t_c)
+$$
+
+## Open-World Pseudo Labeling & Wildcard Matching

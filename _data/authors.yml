@@ -8,7 +8,7 @@ author1:
   # Used at the bottom of each page and at the top of the `about` layout
   # Markdown enabled, can use multiple paragraphs (enabled by `|`)
   about:             |
-    a senior undergraduate at Chung-Ang University
+    A senior undergraduate at Chung-Ang University
 
   # This photo will be used in the about section
   picture:
@@ -54,7 +54,7 @@ author1:
     # npm:             <username>
     # hackernews:      <username>
     # trello:          <firstnamelastname>
-    # linkedin:        <firstname-lastname-string>
+    linkedin:        현수-김-67945b323
     # xing:            <firstname_lastname_counter>
     # blogger:         <number>
     # delicious:       <username>
