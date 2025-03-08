@@ -64,11 +64,11 @@ c_i = \displaystyle{\argmax_{c \in C^{base}} cosine(v_i, t_c)},
 \end{aligned}
 $$
 
-- $$v_i$$ : frozen VLM의 feature map에서 RoI Align을 수행해 얻은 $b_i$의 region feature
+- $$v_i$$ : frozen VLM의 feature map에서 RoI Align을 수행해 얻은 $$b_i$$의 region feature
 - $$t_c$$ : class c의 text embedding
 - $$cosine$$ : cosine similarity
 
-이후, class-aware object query인 $q_i^*$는 다음과 같다.
+이후, class-aware object query인 $$q_i^*$$는 다음과 같다.
 
 $$
 \begin{aligned}
@@ -86,3 +86,21 @@ P(\hat{b}_i \in c) = \hat{m}_i cosine(\hat{v}_i, t_c)
 $$
 
 ## Open-World Pseudo Labeling & Wildcard Matching
+OVD는 훈련시 base category annotation만 사용하여 novel object는 background로 취급된다. 이로 인해 base category와 novel category 간 confidence bias가 생기게 된다.
+이를 해결하기 위해 Open-World Pseudo Labeling을 통해 학습한다.
+<img src="../images/OV-DQUO/2-a.png" />
+
+1. Open-World Detector 훈련
+2. Open-World object proposal 생성
+3. 위 proposal에 대해 foreground 가능성 추정
+4. Base Training set update
+
+처음에 $$c_{base}$$ data를 사용해 OLN을 훈련
+
+OLN이란 각 영역의 위치와 형태가 어떤 object와 잘 겹치는지 추정하도록 학습된 Open-World Detector
+{:.note}
+
+처음에 이미지 $$I \in R^{3 \times H \times W}$$가 주어졌을 때 OLN은 알려지지 않은 object인 $$U = {u_1, u_2, ..., u_n}$$를 출력한다.
+이때, $$u_i = (o_i, s_i)$$를 나타내는데, $$o_i$$는 알려지지 않은 object의 좌표를, $$s_i$$는 localization 품질을 나타낸다.
+
+이후, 확률 분포를 활용해 알려지지 않은 Open-World proposal $$u_i$$가 foreground에 속할 가능성을 추정하는 Foreground Estimator(FE)를 나타낸다.
