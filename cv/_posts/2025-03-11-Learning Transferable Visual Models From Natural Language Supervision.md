@@ -27,4 +27,4 @@ Machines을 훈련시켜 깊은 표현 학습(2012)
 
 ## Selecting an Efficient Pre-Training Method
 이 논문의 효율적인 pre-training 접근법으로 VirTex와 유사하게 Image CNN과 text transformer를 공동 훈련하여 이미지의 caption을 예측하도록 하였다. 하지만 이 방법은 효율적으로 확장하는데 어려움이 있다고 한다.
-<img src="../images/CLIP/2.png>
+<img src="../images/CLIP/2.png" />
