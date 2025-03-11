@@ -125,4 +125,50 @@ $$
 - $$\eta_{o_i}$$ : $$o_i$$의 reconstruction 오류
 
 ### Wildcard Matching
-Open-World
+Open-World pseudo label로부터 OVD는 잠재적인 새로운 object를 background로 처리하지 않아야 한다.
+Pseudo label을 OVD train framework에 통합하는 것은 다음과 같은 문제가 생긴다.
+
+> Open-World에서 알려지지 않은 object는 category에 대한 세부 정보가 부족하다.
+
+이를 해결하기 위해 object를 매칭하기 위해 text embedding을 사용한다.
+
+$$t_{ow}$$는 VLM text encoder를 사용해 "a photo of a {wildcard}"라는 text를 encoding한다. 이때 wildcard matching은 conditional matching을 대체하는 것이 아니라 보완하는 방식이다.
+훈련 과정에서 encoder를 통과해 region proposal $$b_i$$와 알려지지 않은 object 간의 IoU가 threshold $$\tau$$를 초과하면 $$t_{ow}$$를 $$q_i$$에 추가한다. 그렇지 않으면 기본 category의 text embedding $$t_{ci}$$을 $$q_i$$에 추가한다. 수식으로 다음과 같다.
+
+$$
+\begin{aligned}
+q_i^* = \begin{cases}
+q_i + MLP(t_{ow})\;\;\;if\;IoU(b_i, U) > \tau\\
+q_i + MLP(t_{ci})\;\;\;otherwise
+\end{cases}
+\end{aligned}
+$$
+
+이를 수행한 후 최종 object query 중 각 object query를 해당 region proposal인 $$(q_i^*, b_i)$$와 함께 정제하여 $$\hat{y}_i = (\hat{m}_i, \hat{b}_i)$$를 만든다.
+이때 Open-World에서 알려지지 않은 object set인 $$U$$와 예측 집합인 $$Y_{ow} = \{\hat{y}_{ow1}, \hat{y}_{ow2}, ..., \hat{y}_{own} | q_i^* = q_i + MLP(t_{ow})\}$$이 주어졌을 때, hungarian matching algorithm을 이용해 구한다.
+
+$$
+\begin{aligned}
+\hat{\sigma}_{ow} = HM(L_{cost}, U, Y^{ow}),
+\\
+L_{cost}(y, \hat{y}) = L_{match}(m, \hat{m}) + L_{bbox}(b, \hat{b}).,
+\end{aligned}
+$$
+
+open-world에서 알려지지 않은 object에 대한 loss는 다음과 같이 정의가 된다.
+
+$$
+\begin{aligned}
+L_{pseudo} = wL_{match}(m_{ow}, \hat{m}_{ow}\hat{\sigma}_{ow})
+\end{aligned}
+$$
+
+이때 $$w$$는 $$U$$의 foreground 가능성 추정을 나타내는 1차원 vector이다. base category에 대한 loss는 다음과 같다.
+
+$$
+\begin{aligned}
+L_{base} = \displaystyle{\sum_{c\in C_{base}} L_{match}(m_c, \hat{m}_c\hat{\sigma}_c) + L_{bbox}(b_c, \hat{b}_c\hat{\sigma}_c)}
+\end{aligned}
+$$
+
+나중에 다시 작성...
