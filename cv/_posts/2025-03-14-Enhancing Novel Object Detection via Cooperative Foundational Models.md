@@ -114,3 +114,9 @@ SAM은 class-agnostic image segmentation 모델이다. 이는 3가지 기본 모
 - mask decoder $$G_m^{(SAM)}
 
 input image x오ㅏ prompts 집합인 $$P = \{p_1, ..., p_M\}$$에 대해 SAM은 segmentation mask인 $$\{m_1, ..., m_M\}$$와 이에 해당하는 confidence score인 $$S^{(SAM)} = \{s_1^{(SAM)}, ..., s_M^{(SAM)}$$를 생성한다.
+
+프롬프트 $$P$$는 points, bounding boxes, rough masks들을 조합하여 구성된다. 이는 $$F_p^{(SAM)}$$를 통해 embedding 후, prompt embedding $$\phi_p$$를 생성
+
+Image $$x$$는 $$F_i^{(SAM)}$$를 통해 image embedding $$\phi_i$$를 생성
+
+이후, 두 prompt embedding, image embedding은 결합되어 $$G_m^{(SAM)}$$로 정달되어 정제
