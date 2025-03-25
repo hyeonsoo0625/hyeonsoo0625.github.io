@@ -1,12 +1,14 @@
 import styled from "@emotion/styled";
-import { Header } from "@/widgets";
+import { BoxContainer, Header } from "@/widgets";
 import { Background } from "@/entities";
 import { MainContainer } from "@/entities/screen/Container";
-import { getCVFileList } from '@/db/cv/fileList.js';
+import { PAGE_URL } from "@/shared";
+import { getCSFileList } from "@/db/cs/fileList.js";
 import { useNavigate } from "react-router-dom";
 
-const CVPage = () => {
-    const fileList = Object.values(getCVFileList());
+
+const CSPage = () => {
+    const fileList = Object.values(getCSFileList());
     const navigate = useNavigate();
     return (
         <MainContainer>
@@ -15,7 +17,7 @@ const CVPage = () => {
             <br />
             {fileList.map((file, index) => {
                 return (
-                    <div key={index} onClick={() => navigate("/cv/" + (index + 1))}>
+                    <div key={index} onClick={() => navigate("/cs/" + (index + 1))}>
                         {file}
                     </div>
                 );
@@ -25,4 +27,4 @@ const CVPage = () => {
 }
 
 
-export default CVPage;
+export default CSPage;

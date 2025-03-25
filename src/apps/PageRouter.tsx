@@ -10,10 +10,12 @@ import AppStyles from "./AppStyles";
 import { PAGE_URL } from "@/shared";
 
 const Home = lazy(() => import("@/pages/home/HomePage"));
-const Model = lazy(() => import("@/pages/model/ModelPage"));
 const CV = lazy(() => import("@/pages/cv/CVPage"));
 const NLP = lazy(() => import("@/pages/nlp/NLPPage"));
 const MultiModal = lazy(() => import("@/pages/mm/MultiModalPage"));
+const CS = lazy(() => import("@/pages/cs/CSPage"));
+const Post = lazy(() => import("@/pages/templete/PostTemplete"));
+const PRIVATE = lazy(() => import("@/pages/private/PrivatePage"));
 
 const PageRouter = () => {
     return (
@@ -22,10 +24,12 @@ const PageRouter = () => {
                 <AppStyles />
                 <Routes>
                     <Route path={PAGE_URL.HOME} element={<Home />} />
-                    <Route path={PAGE_URL.MODEL} element={<Model />} />
                     <Route path={PAGE_URL.CV} element={<CV />} />
                     <Route path={PAGE_URL.NLP} element={<NLP />} />
                     <Route path={PAGE_URL.MULTIMODAL} element={<MultiModal />} />
+                    <Route path={PAGE_URL.CS} element={<CS />} />
+                    <Route path={PAGE_URL.POST} element={<Post />} />
+                    <Route path={PAGE_URL.PRIVATE} element={<PRIVATE />} />
                 </Routes>
             </RootRouter>
         </Suspense>

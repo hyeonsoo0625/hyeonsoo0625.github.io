@@ -1,4 +1,4 @@
 declare module '@/db/cv/fileList.js' {
-    export function getFileList(): string[];
-  }
+    export function getCVFileList(): string[];
+}
   
