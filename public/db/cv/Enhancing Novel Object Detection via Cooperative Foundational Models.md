@@ -51,22 +51,18 @@ DETR 기반 framework에서 region prompting과 anchor-free matching을 결합�
 training dataset으로 다음과 같이 정의된다.
 
 $$
-\begin{aligned}
 D_{train} = \{(x_i, y_i)\}^N_{i=1} \in X \times Y_{train}
-\end{aligned}
 $$
 
-이때, $$x_i \in R^{3 \times h \times w}$$는 입력 이미지, $$y_i = \{(b_j, c_j)\}^L_{j=1}$$에서 $$b_j \in R^4$$은 bounding box, $$c_j \in C^{known}$$은 class label을 나타낸다.
+이때, $x_i \in R^{3 \times h \times w}$는 입력 이미지, $y_i = \{(b_j, c_j)\}^L_{j=1}$에서 $b_j \in R^4$은 bounding box, $c_j \in C^{known}$은 class label을 나타낸다.
 
 test dataset으로 다음과 같이 정의된다.
 
 $$
-\begin{aligned}
 D_{test} = \{(x_i, y_i)\}^M_{i=1} \in X \times Y_{test}
-\end{aligned}
 $$
 
-이때, $$Y_{test} \supset Y_{train}$$을 만족하고, testing class label인 $$c_j$$는 C \supset C_{known}에 속할 수 있다.
+이때, $Y_{test} \supset Y_{train}$을 만족하고, testing class label인 $c_j$는 C \supset C_{known}에 속할 수 있다.
 
 기존 Mask-RNN과 DETR은 closed-set detector이므로, 새로운 object를 탐지하기 위해서는 Grounding DINO에서 DINO에 자연어를 도입하여 open-set 일반화에 성공하였다. 이는 category name 또는 class 형태로 된 자연어 입력을 처리해 이미지 내의 임의의 object를 탐지한다.
 
@@ -89,31 +85,29 @@ detection된 box는 SAM을 이용해 정제
 
 ## Preliminaries
 ### Contrastive Language-Image Pre-training (CLIP)
-CLIP은 이중 encoder 아키텍처를 포함하고 text encoder와 image encoder는 각각 $$F_t^{(CLIP)}$$, $$F_i^{(CLIP)}$$으로 표현된다. 훈련 시 N개의 image-text set batch를 이용해 훈련하고, image embedding인 $$\phi_i \in R^d$$와 $$\phi_t \in R^d$$를 정렬한다.
-zero-shot classification을 위해 이미지 $$x$$와 $$|C|$$개의 고유 class 집합이 주어지면 template $$T(\cdot)$$를 이용해 $$|C|$$개의 text prompt를 생성한다. ("a photo of a [CLASS]"). 이때, [CLASS] token을 target dataset의 각 class 이름으로 변경한다.
-이 textual descriptors인 $$\Phi_t = F_t^{(CLIP)}(T(C))$$가 되고, image는 $$\phi_i = F_i^{(CLIP)}(x)$$가 된다. 이때 다음과 같이 계산하여 예측 class를 구한다.
+CLIP은 이중 encoder 아키텍처를 포함하고 text encoder와 image encoder는 각각 $F_t^{(CLIP)}$, $F_i^{(CLIP)}$으로 표현된다. 훈련 시 N개의 image-text set batch를 이용해 훈련하고, image embedding인 $\phi_i \in R^d$와 $\phi_t \in R^d$를 정렬한다.
+zero-shot classification을 위해 이미지 $x$와 $|C|$개의 고유 class 집합이 주어지면 template $T(\cdot)$를 이용해 $|C|$개의 text prompt를 생성한다. ("a photo of a [CLASS]"). 이때, [CLASS] token을 target dataset의 각 class 이름으로 변경한다.
+이 textual descriptors인 $\Phi_t = F_t^{(CLIP)}(T(C))$가 되고, image는 $\phi_i = F_i^{(CLIP)}(x)$가 된다. 이때 다음과 같이 계산하여 예측 class를 구한다.
 
 $$
-\begin{aligned}
 \phi_i^T \Phi_t \in R^{1 \times |C|}
-\end{aligned}
 $$
 
 이때, 예측된 class는 해당 score가 가장 높은 class가 된다.
 
 ### Segment Anything Model (SAM)
 SAM은 class-agnostic image segmentation 모델이다. 이는 3가지 기본 모듈로 구성된다.
-- image encoder $$F_i^{(SAM)}$$
-- prompt encoder $$F_p^{(SAM)}$$
-- mask decoder $$G_m^{(SAM)}
+- image encoder $F_i^{(SAM)}$
+- prompt encoder $F_p^{(SAM)}$
+- mask decoder $G_m^{(SAM)}$
 
-input image x오ㅏ prompts 집합인 $$P = \{p_1, ..., p_M\}$$에 대해 SAM은 segmentation mask인 $$\{m_1, ..., m_M\}$$와 이에 해당하는 confidence score인 $$S^{(SAM)} = \{s_1^{(SAM)}, ..., s_M^{(SAM)}$$를 생성한다.
+input image x와 prompts 집합인 $P = \{p_1, ..., p_M\}$에 대해 SAM은 segmentation mask인 $\{m_1, ..., m_M\}$와 이에 해당하는 confidence score인 $S^{(SAM)} = \{s_1^{(SAM)}, ..., s_M^{(SAM)}$를 생성한다.
 
-프롬프트 $$P$$는 points, bounding boxes, rough masks들을 조합하여 구성된다. 이는 $$F_p^{(SAM)}$$를 통해 embedding 후, prompt embedding $$\phi_p$$를 생성
+프롬프트 $P$는 points, bounding boxes, rough masks들을 조합하여 구성된다. 이는 $F_p^{(SAM)}$를 통해 embedding 후, prompt embedding $\phi_p$를 생성
 
-Image $$x$$는 $$F_i^{(SAM)}$$를 통해 image embedding $$\phi_i$$를 생성
+Image $x$는 $F_i^{(SAM)}$를 통해 image embedding $\phi_i$를 생성
 
-이후, 두 prompt embedding, image embedding은 결합되어 $$G_m^{(SAM)}$$로 정달되어 정제된 segmentation mask $$m$$과 score $$s^{(SAM)}$$을 생성한다.
+이후, 두 prompt embedding, image embedding은 결합되어 $G_m^{(SAM)}$로 정달되어 정제된 segmentation mask $m$과 score $s^{(SAM)}$을 생성한다.
 
 <img src="../images/CFM/SAM.png" />
 
