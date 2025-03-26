@@ -1,4 +1,3 @@
-import styled from "@emotion/styled";
 import { Header } from "@/widgets";
 import { Background } from "@/entities";
 import { MainContainer } from "@/entities/screen/Container";

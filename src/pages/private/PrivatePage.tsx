@@ -1,4 +1,4 @@
-import { BoxContainer, Header } from "@/widgets";
+import { Header } from "@/widgets";
 import { Background } from "@/entities";
 import { MainContainer } from "@/entities/screen/Container";
 import { useState } from "react";

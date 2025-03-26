@@ -38,7 +38,7 @@ const HeaderContainer = styled.header`
     align-items: center;
     width: 100%;
     height: 55px;
-    border-radius: 0px 0px 10px 10px;
+    border-radius: 0px 0px 8px 8px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
     color: #333;
 `;
@@ -59,8 +59,9 @@ const IndexItem = styled.li`
     align-items: center;
     width: 100px;
     font-size: 1.2rem;
+    font-weight: 700;
     cursor: pointer;
     &:hover {
-        font-weight: bold;
+        font-weight: 1000;
     }
 `;

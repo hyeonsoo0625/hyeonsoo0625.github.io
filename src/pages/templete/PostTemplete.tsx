@@ -1,8 +1,7 @@
 import styled from "@emotion/styled";
-import { BoxContainer, Header } from "@/widgets";
+import { Header } from "@/widgets";
 import { Background } from "@/entities";
 import { MainContainer } from "@/entities/screen/Container";
-import { PAGE_URL } from "@/shared";
 import ReactMarkdown from "react-markdown";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -77,7 +76,7 @@ const AnimatedHeader = styled.div<{ show: boolean }>`
 `;
 
 const MdContainer = styled.div`
-    background-color: skyblue;
+    // background-color: skyblue;
     width: 100vw;
     display: flex;
     justify-content: center;
