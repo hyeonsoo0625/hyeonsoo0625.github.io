@@ -16,6 +16,7 @@ const MultiModal = lazy(() => import("@/pages/mm/MultiModalPage"));
 const CS = lazy(() => import("@/pages/cs/CSPage"));
 const Post = lazy(() => import("@/pages/templete/PostTemplete"));
 const PRIVATE = lazy(() => import("@/pages/private/PrivatePage"));
+const TRANSLATE = lazy(() => import("@/pages/nlp/translate/TranslatePage"));
 
 const PageRouter = () => {
     return (
@@ -30,6 +31,7 @@ const PageRouter = () => {
                     <Route path={PAGE_URL.CS} element={<CS />} />
                     <Route path={PAGE_URL.POST} element={<Post />} />
                     <Route path={PAGE_URL.PRIVATE} element={<PRIVATE />} />
+                    <Route path={PAGE_URL.TRANSLATE} element={<TRANSLATE />} />
                 </Routes>
             </RootRouter>
         </Suspense>

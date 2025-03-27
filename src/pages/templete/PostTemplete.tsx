@@ -89,6 +89,9 @@ const MdContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    @media (max-width: 768px) {
+        width: 100vw;
+    }
 `;
 
 const MdSubContainer = styled.div`
@@ -98,4 +101,7 @@ const MdSubContainer = styled.div`
     justify-content: center;
     flex-direction: column;
     padding: 0px 10px 0px 10px;
+    @media (max-width: 768px) {
+        width: 80vw;
+    }
 `;
