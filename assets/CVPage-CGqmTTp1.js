@@ -1,0 +1,1 @@
+import{u as i,j as n,a,B as o}from"./index-CEFWZdGw.js";import{H as c}from"./Header-BBY8AKdh.js";import{M as u}from"./Container-BucH2hlI.js";const l=()=>({}),g=()=>{const t=Object.values(l()),e=i();return n(u,{children:[a(c,{}),a(o,{}),a("br",{}),t.map((s,r)=>a("div",{onClick:()=>e("/cv/"+(r+1)),children:s},r))]})};export{g as default};
