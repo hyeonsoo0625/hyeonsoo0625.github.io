@@ -5,8 +5,6 @@ import { MainContainer } from "@/entities/screen/Container";
 import ReactMarkdown from "react-markdown";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getCSFileList } from "@/db/cs/fileList.js";
-import { getMMFileList } from "@/db/mm/fileList.js";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import "katex/dist/katex.min.css";
@@ -14,11 +12,10 @@ import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 
 const PostTemplete = () => {
-    const { category, id } = useParams();
+    const { category, subject: _subject,  title } = useParams();
     const [content, setContent] = useState("");
     const [showHeader, setShowHeader] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
-
     useEffect(() => {
         const handleScroll = () => {
             const currentScrollY = window.scrollY;
@@ -37,10 +34,6 @@ const PostTemplete = () => {
     }, [lastScrollY]);
 
     useEffect(() => {
-        const title = id ? (
-            category === "mm" ? getMMFileList()[Number(id)] : category === "cs" ? (
-            getCSFileList()[Number(id)]) : null
-         ) : null;
         if (title) {
             fetch(`/db/${category}/${title}.md`)
             .then((response) => response.text())
@@ -48,7 +41,7 @@ const PostTemplete = () => {
             .catch((error) => console.error(error));
             console.log(content);
         }
-    }, [category, id]);
+    }, [category, title]);
 
     return (
         <MainContainer>

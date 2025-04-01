@@ -1,4 +1,7 @@
 declare module '@/db/cs/fileList.js' {
-    export function getCSFileList(): string[];
+    export function getCSFileList(subject): string[];
 }
-  
+
+declare module '@/db/cs/fileList.js' {
+    export function getCSFile(): string[];
+}

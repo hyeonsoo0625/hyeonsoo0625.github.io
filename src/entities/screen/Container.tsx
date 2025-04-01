@@ -5,6 +5,6 @@ export const MainContainer = styled.div`
     position: relative;
     flex-direction: column;
     height: 90vh;
-    background-color: white;
+    background-color: #f9f9f9;
     color: black;
 `;

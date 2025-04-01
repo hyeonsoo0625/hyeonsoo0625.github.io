@@ -7,7 +7,7 @@ export const Background = ({ src }: { src?: string }) => {
     position: fixed;
     top: 0px;
     left: 0px;
-
+    
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

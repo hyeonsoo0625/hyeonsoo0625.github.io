@@ -25,11 +25,11 @@ const PageRouter = () => {
                 <AppStyles />
                 <Routes>
                     <Route path={PAGE_URL.HOME} element={<Home />} />
+                    <Route path={PAGE_URL.POST} element={<Post />} />
                     <Route path={PAGE_URL.CV} element={<CV />} />
                     <Route path={PAGE_URL.NLP} element={<NLP />} />
                     <Route path={PAGE_URL.MULTIMODAL} element={<MultiModal />} />
                     <Route path={PAGE_URL.CS} element={<CS />} />
-                    <Route path={PAGE_URL.POST} element={<Post />} />
                     <Route path={PAGE_URL.PRIVATE} element={<PRIVATE />} />
                     <Route path={PAGE_URL.TRANSLATE} element={<TRANSLATE />} />
                 </Routes>

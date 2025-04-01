@@ -3,11 +3,13 @@ import { Header } from "@/widgets";
 import { Background } from "@/entities";
 import { MainContainer } from "@/entities/screen/Container";
 import { getCSFileList } from "@/db/cs/fileList.js";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
 
 
 const CSPage = () => {
-    const fileList = Object.values(getCSFileList());
+    const { subject } = useParams<{ subject?: string }>();
+    const [fileList] = useState<string[]>(getCSFileList(subject));
     const navigate = useNavigate();
     return (
         <MainContainer>
@@ -19,7 +21,7 @@ const CSPage = () => {
             <Container>
                 {fileList.map((file, index) => {
                     return (
-                        <FileContainer key={index} onClick={() => navigate("/cs/" + (index + 1))}>
+                        <FileContainer key={index} onClick={() => navigate("/cs/" + subject + "/" + file)}>
                             {file}
                         </FileContainer>
                     );

@@ -2,12 +2,14 @@ import styled from "@emotion/styled";
 import { Header } from "@/widgets";
 import { Background } from "@/entities";
 import { MainContainer } from "@/entities/screen/Container";
-import { useNavigate } from "react-router-dom";
 import { getMMFileList } from "@/db/mm/fileList.js";
+import { useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
 
 
-const MultiModalPage = () => {
-    const fileList = Object.values(getMMFileList());
+const CSPage = () => {
+    const { subject } = useParams<{ subject?: string }>();
+    const [fileList] = useState<string[]>(getMMFileList(subject));
     const navigate = useNavigate();
     return (
         <MainContainer>
@@ -19,7 +21,7 @@ const MultiModalPage = () => {
             <Container>
                 {fileList.map((file, index) => {
                     return (
-                        <FileContainer key={index} onClick={() => navigate("/mm/" + (index + 1))}>
+                        <FileContainer key={index} onClick={() => navigate("/mm/" + subject + "/" + file)}>
                             {file}
                         </FileContainer>
                     );
@@ -30,7 +32,7 @@ const MultiModalPage = () => {
 }
 
 
-export default MultiModalPage;
+export default CSPage;
 
 const FileContainer = styled.div`
     width: 60vw;
