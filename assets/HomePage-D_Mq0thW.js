@@ -1,1 +1,0 @@
-import{j as e,a as o,c as r}from"./index-CEFWZdGw.js";import{H as a}from"./Header-BBY8AKdh.js";const m=()=>e(t,{children:[o(a,{}),"homepage"]}),t=r("div",{target:"e1j1sze50"})({name:"1x0jxbr",styles:"display:flex;width:100vw;height:100vh;font-size:2rem;color:#333;background-color:#f9f9f9"});export{m as default};
