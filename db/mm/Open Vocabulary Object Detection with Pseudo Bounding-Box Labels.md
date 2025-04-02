@@ -1,4 +1,4 @@
-# Open Vocabulary Object Detection with Pseudo Bounding-Box Labels
+## Open Vocabulary Object Detection with Pseudo Bounding-Box Labels
 
 #### ECCV 2022
 ## Abstract

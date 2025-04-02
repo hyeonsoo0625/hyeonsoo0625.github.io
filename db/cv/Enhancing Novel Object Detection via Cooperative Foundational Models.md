@@ -1,4 +1,4 @@
-# Enhancing Novel Object Detection via Cooperative Foundational Models
+## Enhancing Novel Object Detection via Cooperative Foundational Models
 
 # Introduction
 현재 Object Detection 분야는 Mask-RCNN과 DETR 등 close-set 패러다임으로 작동한다. 실제 환경에서는 object class가 긴 꼬리의 분포를 가지고 있다. 따라서 이러한 train data을 넘어 일반화 할 수 있는 open-set detector의 개발이 중요하다.

@@ -1,0 +1,1 @@
+import{c as e}from"./index-B5x_HjDT.js";const t=e("div",{target:"eepqa260"})({name:"sknyb3",styles:"display:flex;position:relative;flex-direction:column;height:100%;background-color:#f9f9f9;color:black"});export{t as M};
