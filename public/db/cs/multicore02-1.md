@@ -1,7 +1,7 @@
-# Multicore02-1
+## Multicore02-1
 <hr>
 
-# Introduction to Multicore Computing
+## Introduction to Multicore Computing
 
 ## Multicore Processor
 하나의 computing component는 2개 또는 그 이상의 `독립적인` core로 이루어져 있음

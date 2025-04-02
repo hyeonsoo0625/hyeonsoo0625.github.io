@@ -22,7 +22,9 @@ const CSPage = () => {
                 {fileList.map((file, index) => {
                     return (
                         <FileContainer key={index} onClick={() => navigate("/cs/" + subject + "/" + file)}>
-                            {file}
+                            <FileSubContainer>
+                                {file}
+                            </FileSubContainer>
                         </FileContainer>
                     );
                 })}
@@ -44,8 +46,17 @@ const FileContainer = styled.div`
     background-color: #f0f0f0;
     border-radius: 20px;
     margin: 10px;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: 700;
+`;
+
+const FileSubContainer = styled.div`
+    width: 50vw;
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 `;
 
 const Container = styled.div`
